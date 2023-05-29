@@ -1,0 +1,15 @@
+"0","# Box Plot - carrier_delay
+boxplot(airlines_data$carrier_delay, main = ""Distribution of Carrier Delays"", xlab = ""Delay (minutes)"" , 
+        boxlwd = 2, outwex = 0.5, boxwex = 0.5 , outline = TRUE , horizontal = TRUE ,
+        ylim=c(0,8000))
+
+# Box Plot - arr_delay
+boxplot(airlines_data$arr_delay, main = ""Distribution of Arrival Delays"", xlab = ""Delay (minutes)"" , 
+        boxlwd = 2, outwex = 0.5, boxwex = 0.5 , outline = TRUE , horizontal = TRUE ,
+        ylim=c(0,12000))
+"
+"0",""
+"0","# Box Plot - arr_delay"
+"0","boxplot(airlines_data$arr_delay, main = ""Distribution of Weather Delays"", xlab = ""Delay (minutes)"" , "
+"0","        boxlwd = 2, outwex = 0.5, boxwex = 0.5 , outline = TRUE , horizontal = TRUE ,"
+"0","        ylim=c(0,12000))"

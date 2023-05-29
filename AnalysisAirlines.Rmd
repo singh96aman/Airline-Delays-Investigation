@@ -1,7 +1,7 @@
 ---
 title: "AirlineDelayAnalysis"
 output: pdf_document
-date: "2023-05-29"
+date: "2023-05-25"
 Author: Samriddhi, Astha and Aman
 ---
 
@@ -9,22 +9,109 @@ Author: Samriddhi, Astha and Aman
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+## Loading necessary libraries
+```{r}
+library(dplyr)
+library(ggplot2)
 ```
 
-## Including Plots
+### Loading data and Summarization for Airlines Delay
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+airlines_data <- read.csv("Airline_Delay_Cause.csv")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Box Plots
+
+```{r}
+# Box Plot - carrier_delay
+boxplot(airlines_data$carrier_delay, main = "Distribution of Carrier Delays", xlab = "Delay (minutes)" , 
+        boxlwd = 2, outwex = 0.5, boxwex = 0.5 , outline = TRUE , horizontal = TRUE ,
+        ylim=c(0,8000))
+
+# Box Plot - arr_delay
+boxplot(airlines_data$arr_delay, main = "Distribution of Arrival Delays", xlab = "Delay (minutes)" , 
+        boxlwd = 2, outwex = 0.5, boxwex = 0.5 , outline = TRUE , horizontal = TRUE ,
+        ylim=c(0,12000))
+
+# Box Plot - arr_delay
+boxplot(airlines_data$arr_delay, main = "Distribution of Weather Delays", xlab = "Delay (minutes)" , 
+        boxlwd = 2, outwex = 0.5, boxwex = 0.5 , outline = TRUE , horizontal = TRUE ,
+        ylim=c(0,12000))
+
+# Scatter Plot
+plot(airlines_data$carrier_delay, airlines_data$arr_delay, 
+     main = "Arrival Delay vs Carrier Delay",
+     xlab = "Carrier Delay (minutes)", ylab = "Arrival Delay (minutes)")
+
+# Scatter Plot
+plot(airlines_data$weather_delay, airlines_data$arr_delay, 
+     main = "Arrival Delay vs Weather Delay",
+     xlab = "Weather Delay (minutes)", ylab = "Arrival Delay (minutes)",
+     xlim = c(0,1000))
+```
+
+
+## Linear Regression
+
+```{r}
+# Select the relevant columns for the linear regression analysis
+airlines_data_1m <- airlines_data %>%
+select (arr_delay, carrier_delay, weather_delay, nas_delay, security_delay, late_aircraft_delay)
+
+# Fit a linear regression model 
+arr_carrier_model <- lm(arr_delay ~ carrier_delay , data = airlines_data_1m) 
+arr_weather_model <- lm(arr_delay ~ weather_delay , data = airlines_data_1m) 
+arr_nas_model <- lm(arr_delay ~ nas_delay , data = airlines_data_1m) 
+arr_security_model <- lm(arr_delay ~ security_delay , data = airlines_data_1m)
+arr_aircraft_model <- lm(arr_delay ~ late_aircraft_delay , data = airlines_data_1m) 
+
+#Print the model summary 
+print(summary(arr_carrier_model))
+print(summary (arr_weather_model)) 
+print (summary (arr_nas_model)) 
+print (summary (arr_security_model)) 
+print (summary (arr_aircraft_model))
+```
+
+
+## Chi-Square Test
+
+```{r}
+delta <- subset(airlines_data, carrier_name == "Delta Air Lines Inc.")
+american <- subset(airlines_data, carrier_name == "American Airlines Inc.")
+
+# carrier_ct vs weather_ct
+delta_table<- table (delta$carrier_ct, delta$weather_ct) 
+american_table <- table(american$carrier_ct, american$weather_ct) 
+chi_sq <- chisq.test(delta_table, american_table)
+print(chi_sq)
+
+#carrier_ct vs nas_ct
+delta_table<- table (delta$carrier_ct, delta$nas_ct) 
+american_table <- table(american$carrier_ct, american$nas_ct) 
+chi_sq <- chisq.test(delta_table, american_table)
+print(chi_sq)
+
+#carrier_ct vs security_ct
+delta_table <- table(delta$carrier_ct, delta$security_ct) 
+american_table <- table (american$carrier_ct, american$security_ct) 
+chi_sq <- chisq.test(delta_table, american_table)
+print(chi_sq)
+
+#carrier_ct vs late_aircraft_ct
+delta_table <- table (delta$carrier_ct, delta$late_aircraft_ct) 
+american_table <- table (american$carrier_ct, american$late_aircraft_ct) 
+chi_sq <- chisq.test(delta_table, american_table)
+print(chi_sq)
+```
+
+## Correlation Matrix
+
+```{r}
+data <- airlines_data %>% 
+  select(carrier_delay, weather_delay, nas_delay, security_delay, late_aircraft_delay)
+
+correlation_matrix <- cor(data, use = "complete.obs")
+print(correlation_matrix)
+```

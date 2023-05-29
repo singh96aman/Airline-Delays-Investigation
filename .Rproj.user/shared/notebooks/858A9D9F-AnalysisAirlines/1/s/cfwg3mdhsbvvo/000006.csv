@@ -1,0 +1,5 @@
+"0",""
+"0","# Scatter Plot"
+"0","plot(airlines_data$carrier_delay, airlines_data$arr_delay, "
+"0","     main = ""Arrival Delay vs Carrier Delay"","
+"0","     xlab = ""Carrier Delay (minutes)"", ylab = ""Arrival Delay (minutes)"")"
