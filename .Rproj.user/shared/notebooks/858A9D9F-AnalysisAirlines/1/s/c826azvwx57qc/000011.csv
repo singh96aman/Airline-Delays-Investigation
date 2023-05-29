@@ -1,0 +1,8 @@
+"0","set.seed(1)
+
+selected_columns_for_matrix <- c(""carrier_name"", ""airport"", ""arr_flights"", ""arr_del15"", ""carrier_ct"", ""weather_ct"", ""nas_ct"", ""security_ct"", ""late_aircraft_ct"", ""arr_cancelled"", ""arr_diverted"")
+subset_data <- data[, selected_columns_for_matrix]
+"
+"2","Error in `[.data.frame`(data, , selected_columns_for_matrix) : 
+  undefined columns selected
+"

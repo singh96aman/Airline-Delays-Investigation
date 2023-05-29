@@ -1,0 +1,28 @@
+"0","delta <- subset(airlines_data, carrier_name == ""Delta Air Lines Inc."")
+american <- subset(airlines_data, carrier_name == ""American Airlines Inc."")
+
+# carrier_ct vs weather_ct
+delta_table<- table (delta$carrier_ct, delta$weather_ct) 
+american_table <- table(american$carrier_ct, american$weather_ct) 
+chi_sq <- chisq.test(delta_table, american_table)
+"
+"2","Warning: Chi-squared approximation may be incorrect"
+"0","print(chi_sq)"
+"1","
+"
+"1","	Pearson's Chi-squared test"
+"1","
+"
+"1","
+"
+"1","data:  "
+"1",""
+"1","delta_table"
+"1",""
+"1","
+"
+"1","X-squared = 90954, df = 85360, p-value < 2.2e-16"
+"1","
+"
+"1","
+"

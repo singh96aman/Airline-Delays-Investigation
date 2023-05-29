@@ -19,6 +19,13 @@ library(ggplot2)
 
 ```{r}
 airlines_data <- read.csv("Airline_Delay_Cause.csv")
+summary(airlines_data)
+print(length(unique(airlines_data$carrier)))
+print(length(unique(airlines_data$carrier_name)))
+print(length(unique(airlines_data$airport)))
+print(length(unique(airlines_data$airport_name)))
+print(nrow(airlines_data))
+print(ncol(airlines_data))
 ```
 
 ## Box Plots
@@ -115,3 +122,11 @@ data <- airlines_data %>%
 correlation_matrix <- cor(data, use = "complete.obs")
 print(correlation_matrix)
 ```
+
+```{r}
+set.seed(1)
+selected_columns_for_matrix <- c("carrier_name", "airport", "arr_flights", "arr_del15", "carrier_ct", "weather_ct", "nas_ct", "security_ct", "late_aircraft_ct", "arr_cancelled", "arr_diverted")
+subset_data <- airlines_data[, selected_columns_for_matrix]
+plot(subset_data, col="blue")
+```
+
