@@ -1,0 +1,4 @@
+"0","xyplot(resid(arr_carrier_model) ~ fitted(arr_carrier_model), data=airlines_data_1m, type=c(""p"", ""r""))
+xyplot(resid(arr_weather_model) ~ fitted(arr_weather_model), data=airlines_data_1m, type=c(""p"", ""r""))
+"
+"0","xyplot(resid(arr_nas_model) ~ fitted(arr_nas_model), data=airlines_data_1m, type=c(""p"", ""r""))"

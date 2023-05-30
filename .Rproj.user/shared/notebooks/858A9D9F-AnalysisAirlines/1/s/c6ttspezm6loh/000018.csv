@@ -1,0 +1,1 @@
+"0","xyplot(resid(arr_aircraft_model) ~ fitted(arr_aircraft_model), data=airlines_data_1m, type=c(""p"", ""r""))"

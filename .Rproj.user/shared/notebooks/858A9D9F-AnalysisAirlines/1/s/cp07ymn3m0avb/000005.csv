@@ -1,0 +1,4 @@
+"0","hist(arr_carrier_model$residuals)
+hist(arr_weather_model$residuals)
+"
+"0","hist(arr_nas_model$residuals)"

@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(dplyr)
 library(ggplot2)
+library(mosaic)
 ```
 
 ### Loading data and Summarization for Airlines Delay
@@ -79,6 +80,22 @@ print(summary (arr_weather_model))
 print (summary (arr_nas_model)) 
 print (summary (arr_security_model)) 
 print (summary (arr_aircraft_model))
+```
+
+```{r}
+xyplot(resid(arr_carrier_model) ~ fitted(arr_carrier_model), data=airlines_data_1m, type=c("p", "r"))
+xyplot(resid(arr_weather_model) ~ fitted(arr_weather_model), data=airlines_data_1m, type=c("p", "r"))
+xyplot(resid(arr_nas_model) ~ fitted(arr_nas_model), data=airlines_data_1m, type=c("p", "r"))
+xyplot(resid(arr_security_model) ~ fitted(arr_security_model), data=airlines_data_1m, type=c("p", "r"))
+xyplot(resid(arr_aircraft_model) ~ fitted(arr_aircraft_model), data=airlines_data_1m, type=c("p", "r"))
+```
+
+```{r}
+hist(arr_carrier_model$residuals)
+hist(arr_weather_model$residuals)
+hist(arr_nas_model$residuals)
+hist(arr_security_model$residuals)
+hist(arr_aircraft_model$residuals)
 ```
 
 
